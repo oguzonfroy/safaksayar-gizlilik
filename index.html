@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Şafak Sayar: Vatan Borcu Android uygulamasının gizlilik politikası.">
+<title>Şafak Sayar Gizlilik Politikası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  html, body { margin: 0; }
+  * { box-sizing: border-box; }
+  /* Layout: tek sutun okuma metni; ustte kunye benzeri baslik ve ozet tablosu, sonra numarasiz bolumler. */
+  :root {
+    --bg: #f6f4f0;
+    --surface: #ffffff;
+    --ink: #1b1a17;
+    --ink-2: #4a463f;
+    --ink-3: #7a746a;
+    --line: #e2ddd4;
+    --accent: #c25a00;
+    --accent-soft: #fbe9d7;
+    --volt: #8a6d00;
+    --font-display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+    --font-body: "Barlow", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0b0d; --surface: #151518; --ink: #f2efe9; --ink-2: #c3beb4; --ink-3: #8b867d;
+      --line: #2a2a2f; --accent: #ff8a00; --accent-soft: #2a1a08; --volt: #ffd400; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0b0d; --surface: #151518; --ink: #f2efe9; --ink-2: #c3beb4; --ink-3: #8b867d;
+    --line: #2a2a2f; --accent: #ff8a00; --accent-soft: #2a1a08; --volt: #ffd400; color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.65 var(--font-body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding-block: 48px 72px; display: grid; gap: 40px; }
+
+  header { display: grid; gap: 14px; }
+  .eyebrow {
+    font: 600 13px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+  }
+  h1 {
+    font: 700 clamp(2.4rem, 7vw, 3.6rem)/1 var(--font-display); letter-spacing: .01em; margin: 0;
+    text-transform: uppercase; text-wrap: balance;
+  }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--ink-3); font-size: 15px; }
+  .meta b { color: var(--ink-2); font-weight: 600; }
+  .lead { font-size: 19px; color: var(--ink-2); margin: 0; max-width: 40rem; }
+  .lead strong { color: var(--ink); }
+
+  .notice {
+    border: 1px solid var(--line); background: var(--surface); border-radius: 10px;
+    padding: 14px 18px; font-size: 15px; color: var(--ink-2);
+  }
+
+  h2 {
+    font: 700 1.6rem/1.15 var(--font-display); text-transform: uppercase; letter-spacing: .02em;
+    margin: 0 0 12px; text-wrap: balance; scroll-margin-top: 16px;
+  }
+  h3 { font: 600 1.05rem/1.3 var(--font-body); margin: 20px 0 6px; }
+  section { display: grid; }
+  section > p, section li { color: var(--ink-2); }
+  section p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 1.2em; display: grid; gap: 6px; }
+  li::marker { color: var(--accent); }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  code { font: 500 .88em var(--font-mono); background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+
+  nav { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 14px; }
+  nav ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 15px; }
+  nav a { color: var(--ink-2); text-decoration: none; }
+  nav a:hover { color: var(--accent); }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th { font: 600 12px/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
+  td:first-child { color: var(--ink); font-weight: 600; }
+  td { color: var(--ink-2); }
+  .tag { display: inline-block; font: 600 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase;
+    padding: 4px 7px; border-radius: 999px; white-space: nowrap; }
+  .tag.local { background: var(--accent-soft); color: var(--accent); }
+  .tag.server { border: 1px solid var(--line); color: var(--ink-2); }
+
+  .contact {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+    border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 16px 18px;
+  }
+  .contact .addr { font: 500 16px var(--font-mono); user-select: all; color: var(--ink); }
+  .contact button {
+    font: 600 14px var(--font-body); color: var(--accent); background: transparent;
+    border: 1px solid var(--accent); border-radius: 8px; padding: 6px 12px; cursor: pointer;
+  }
+  footer { color: var(--ink-3); font-size: 14px; border-top: 1px solid var(--line); padding-top: 18px; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+</style>
+
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Gizlilik Politikası</div>
+    <h1>Şafak Sayar: Vatan Borcu</h1>
+    <div class="meta">
+      <span><b>Son güncelleme:</b> 28 Ekim 2026</span>
+      <span><b>Uygulama:</b> com.whyoguz.safaksayar (Android)</span>
+    </div>
+    <p class="lead">Şafak Sayar, uygulamaya girdiğin kişisel bilgileri <strong>toplamaz, sunucuya göndermez ve paylaşmaz</strong>. Profilin, anıların, günlüğün ve görev yerin yalnızca telefonunda kalır. Tek istisna, <em>Sohbet</em> sekmesinde kendi isteğinle yazdığın mesajlar ve seçtiğin takma addır.</p>
+    <div class="notice">Bu uygulama resmî değildir. Millî Savunma Bakanlığı, Türk Silahlı Kuvvetleri veya herhangi bir kamu kurumuyla bağlantısı yoktur. Gösterilen terhis tarihleri tahminidir.</div>
+  </header>
+
+  <nav aria-label="Bölümler">
+    <ol>
+      <li><a href="#ozet">Özet</a></li>
+      <li><a href="#cihaz">Cihazda kalanlar</a></li>
+      <li><a href="#reklam">Reklamlar</a></li>
+      <li><a href="#carsi">Çarşı ve konum</a></li>
+      <li><a href="#sohbet">Sohbet</a></li>
+      <li><a href="#kayitlar">Olay kayıtları</a></li>
+      <li><a href="#izinler">İzinler</a></li>
+      <li><a href="#haklar">Hakların</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ol>
+  </nav>
+
+  <section id="ozet">
+    <h2>Özet</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Veri</th><th>Nerede</th><th>Kim görür</th><th>Ne kadar süre</th></tr></thead>
+        <tbody>
+          <tr><td>Ad/lakap, sevk tarihi, hizmet türü, kan grubu, Hakkımda</td><td><span class="tag local">Cihaz</span></td><td>Yalnızca sen</td><td>Uygulamayı silene kadar</td></tr>
+          <tr><td>Anılar ve seçtiğin fotoğraflar</td><td><span class="tag local">Cihaz</span></td><td>Yalnızca sen</td><td>Uygulamayı silene kadar</td></tr>
+          <tr><td>Özel günlük (AES-256, PIN korumalı)</td><td><span class="tag local">Cihaz</span></td><td>Yalnızca sen</td><td>Uygulamayı silene kadar; yedeğe girmez</td></tr>
+          <tr><td>Görev yeri (il, ilçe) ve anlık konum</td><td><span class="tag local">Cihaz</span></td><td>Yalnızca sen</td><td>Konum saklanmaz; görev yeri silene kadar</td></tr>
+          <tr><td>Sohbet takma adı ve mesajları</td><td><span class="tag server">Supabase · AB</span></td><td>Odadaki kullanıcılar</td><td>Mesajlar 7 gün; hesap 90 gün kullanılmazsa silinir</td></tr>
+          <tr><td>Reklam kimliği, cihaz bilgisi, IP'den yaklaşık konum</td><td><span class="tag server">Google AdMob</span></td><td>Google</td><td>Google politikasına göre</td></tr>
+          <tr><td>Olay kayıtları ve çökme raporları (kişisel veri yok)</td><td><span class="tag server">Supabase → Discord</span></td><td>Yalnızca geliştirici</td><td>Geliştirici kanalında</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="cihaz">
+    <h2>Cihazında kalan bilgiler</h2>
+    <ul>
+      <li><strong>Saklanan bilgiler:</strong> ad/lakap, sevk tarihi, askerlik türü, kan grubu, "Hakkımda" yazısı, anı defteri kayıtları ve özel günlük. Hepsi yalnızca telefonunda, uygulamanın özel alanında tutulur ve reklam sağlayıcısıyla paylaşılmaz.</li>
+      <li><strong>Fotoğraflar:</strong> Profil, anı ve arka plan için seçtiğin fotoğraflar sistemin fotoğraf seçicisiyle alınır ve uygulamanın özel alanına kopyalanır. Yalnızca senin seçtiğin görsellere erişilir, galerinin geri kalanına erişilmez.</li>
+      <li><strong>Özel günlük:</strong> Cihazın güvenli donanım anahtarıyla (Android Keystore, AES-256) şifrelenir ve PIN ile korunur. PIN'in düz metin olarak saklanmaz. Günlük, cihaz yedeklerine dahil edilmez.</li>
+    </ul>
+  </section>
+
+  <section id="reklam">
+    <h2>Reklamlar (Google AdMob)</h2>
+    <p>Uygulamanın ücretsiz sunulabilmesi için Google LLC'nin Google Mobile Ads SDK'sı (AdMob) kullanılır. Google, reklam göstermek, reklam performansını ölçmek ve dolandırıcılığı önlemek için şunları otomatik olarak toplayabilir:</p>
+    <ul>
+      <li><strong>Cihaz tanımlayıcıları:</strong> Android Reklam Kimliği ve benzeri tanımlayıcılar.</li>
+      <li><strong>Yaklaşık konum:</strong> IP adresinden çıkarılan ülke veya şehir düzeyinde konum. Uygulama, Çarşı için aldığı GPS konumunu reklam sağlayıcısına vermez.</li>
+      <li><strong>Cihaz ve uygulama bilgileri:</strong> cihaz modeli, işletim sistemi sürümü, dil, uygulama sürümü.</li>
+      <li><strong>Reklam etkileşimleri:</strong> reklamların gösterilmesi ve tıklanması, çökme ve performans bilgileri.</li>
+    </ul>
+    <p>Bu veriler şifreli bağlantıyla (HTTPS) doğrudan Google'a gider; geliştirici bu verilere erişmez ve bunları saklamaz. Ayrıntılar: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google'ın iş ortağı sitelerindeki veri kullanımı</a> ve <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Gizlilik Politikası</a>.</p>
+    <h3>Onay ve kişiselleştirilmiş reklamlar</h3>
+    <p>Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre'deki kullanıcılardan, kişiselleştirilmiş reklam için Google'ın onay formuyla (User Messaging Platform) izin istenir. Onay vermezsen yalnızca kişiselleştirilmemiş reklamlar gösterilebilir. Onayını istediğin zaman <em>Profil</em> ekranının altındaki <strong>Reklam gizlilik seçenekleri</strong> bağlantısından değiştirebilirsin. Reklam kimliğini Android'de <em>Ayarlar → Google → Reklamlar</em> bölümünden sıfırlayabilir veya silebilirsin.</p>
+  </section>
+
+  <section id="carsi">
+    <h2>Çarşı rehberi, harita ve konum</h2>
+    <ul>
+      <li><strong>Görev yeri:</strong> Seçtiğin il ve ilçe yalnızca cihazında saklanır.</li>
+      <li><strong>Mekan listesi:</strong> Kafe, yemek, internet kafe ve oyun salonları <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> verisinden, Overpass API sunucusuna (overpass-api.de; ulaşılamazsa overpass.kumi.systems) <strong>yalnızca seçtiğin ilçenin sınırları</strong> gönderilerek alınır. Bu istekte GPS konumun yer almaz. Sonuçlar 7 gün cihazda saklanır.</li>
+      <li><strong>Harita:</strong> Harita görüntüleri OpenStreetMap karo sunucusundan yüklenir; sunucu baktığın harita bölgesini ve IP adresini görür (<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">OSMF gizlilik politikası</a>). İndirilen karolar internetsiz de gösterilebilmesi için cihazda saklanır (en fazla 200 MB, yedeklere dahil edilmez).</li>
+      <li><strong>Konum izni (isteğe bağlı):</strong> Yalnızca Çarşı'daki konum düğmesine bastığında istenir. Konumun yalnızca cihazında, mekanlara mesafeyi hesaplamak ve haritada kendi noktanı göstermek için kullanılır; hiçbir sunucuya gönderilmez veya kaydedilmez. Konum yalnızca Çarşı ekranı açıkken alınır.</li>
+      <li><strong>Rota:</strong> "Rota" düğmesi yol tarifini Google Haritalar'da açar. Bu noktadan sonra Google Haritalar'ın kendi gizlilik politikası geçerlidir.</li>
+      <li><strong>Güvenlik:</strong> Birlik içinde veya yakınında harita ve konum içeren ekran görüntüleri paylaşma.</li>
+    </ul>
+    <p>Mekan verisi © OpenStreetMap katkıda bulunanlar, ODbL lisansıyla.</p>
+  </section>
+
+  <section id="sohbet">
+    <h2>Sohbet</h2>
+    <ul>
+      <li><strong>Hesap:</strong> Sohbet; e-posta, telefon veya ad istemeyen anonim bir hesapla çalışır. Hesap ilk girişte Supabase (Supabase Inc.; sunucu Frankfurt, AB) üzerinde rastgele bir kimlikle açılır. Oturum anahtarı yalnızca cihazında saklanır ve yedeklere dahil edilmez.</li>
+      <li><strong>Saklananlar:</strong> takma adın, yazdığın mesajlar, mesajın gönderildiği oda (Genel, görev ilinin odası veya görev ilçenin çarşı grubu) ve gönderim zamanı. Bu mesajlar odadaki <strong>diğer kullanıcılar tarafından görülür</strong>.</li>
+      <li><strong>Saklama süresi:</strong> Mesajlar 7 gün sonra sunucudan otomatik silinir. Sohbete 90 gün boyunca girilmeyen anonim hesaplar da silinir.</li>
+      <li><strong>Gönderilmeyenler:</strong> Gerçek adın, profilin, fotoğrafların, konumun ve görev yerin sunucuya gönderilmez. Oda seçimi için yalnızca il plakası veya ilçe numarası kullanılır. Fotoğraf ve konum gönderilemez.</li>
+      <li><strong>Güvenlik ve moderasyon:</strong> Küfür, telefon numarası ve koordinat içeren mesajlar sunucuda reddedilir. Şikayet ettiğin mesaj, mesaj numarası ve anonim kimliğinle kaydedilir; 3 farklı şikayet alan mesaj otomatik gizlenir. Geliştirici kuralları ihlal eden hesapları yasaklayabilir. Engellediğin kişilerin listesi yalnızca cihazında tutulur.</li>
+      <li><strong>Hesabı silme:</strong> <em>Sohbet</em> ekranındaki <strong>Sohbet hesabımı ve mesajlarımı sil</strong> düğmesiyle anonim hesabını, gönderdiğin tüm mesajları ve şikayetlerini sunucudan anında ve kalıcı olarak silebilirsin. Uygulamaya erişimin yoksa aşağıdaki adrese yazabilirsin.</li>
+      <li><strong>Askerî güvenlik:</strong> Birlik adı, nöbet, görev, sevkiyat veya konum bilgisi paylaşma. Odalar bu nedenle birliğe göre değil, ile göre kurulmuştur.</li>
+      <li>Sohbet 13 yaşından küçükler için değildir.</li>
+    </ul>
+  </section>
+
+  <section id="kayitlar">
+    <h2>Uygulama olay kayıtları</h2>
+    <p>Uygulamayı geliştirmek ve hataları düzeltmek için bazı olaylar, Supabase sunucusu (Frankfurt, AB) üzerinden geliştiricinin özel Discord kanalına (Discord Inc., ABD) şifreli bağlantıyla iletilir. Sunucu bu kayıtları saklamaz, yalnızca iletir.</p>
+    <ul>
+      <li><strong>Gönderilenler:</strong> olayın türü (örneğin "uygulama açıldı", "anı eklendi", "sohbet mesajı reddedildi" ve nedeni, "uygulama çöktü" ve hata kaydı), seçim ve sayı bilgileri (hizmet türü, bildirim saati, anı sayısı, mesaj uzunluğu gibi), uygulama sürümü, cihaz modeli, Android sürümü ve cihazı ayırt etmek için rastgele üretilen 6 karakterlik bir kurulum kodu.</li>
+      <li><strong>Gönderilmeyenler:</strong> adın, takma adın, mesaj, anı ve günlük metinlerin, kan grubun, tarihlerin, fotoğrafların, konumun ve görev yerin. Reklam kimliği kullanılmaz.</li>
+      <li>Kayıtları yalnızca geliştirici görür; kimseyle paylaşılmaz ve reklam için kullanılmaz.</li>
+    </ul>
+    <p>Uygulama, reklam ve bu olay kayıtları dışında analiz veya üçüncü taraf takip aracı kullanmaz.</p>
+  </section>
+
+  <section id="izinler">
+    <h2>İzinler</h2>
+    <ul>
+      <li><strong>Bildirim (isteğe bağlı):</strong> günlük şafak bildirimi ve terhis hatırlatmaları için.</li>
+      <li><strong>İnternet ve ağ durumu:</strong> reklamlar, Çarşı mekan ve harita verisi, Sohbet ve olay kayıtları için.</li>
+      <li><strong>Konum (isteğe bağlı; yaklaşık ve hassas):</strong> yalnızca Çarşı'da konum düğmesine basınca istenir, cihazdan çıkmaz.</li>
+      <li>Reklam kütüphanesi, reklam kimliği iznini (<code>AD_ID</code>) otomatik ekler.</li>
+      <li>Kamera, rehber ve mikrofon izni yoktur.</li>
+    </ul>
+  </section>
+
+  <section id="haklar">
+    <h2>Hakların ve veri aktarımı</h2>
+    <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) madde 11 ve AB Genel Veri Koruma Tüzüğü (GDPR) kapsamında; verilerinin işlenip işlenmediğini öğrenme, bilgi isteme, düzeltilmesini veya silinmesini isteme ve işlemeye itiraz etme hakkın vardır.</p>
+    <ul>
+      <li><strong>Cihazdaki veriler:</strong> Uygulamayı kaldırdığında veya Android ayarlarından uygulama verilerini temizlediğinde tamamen silinir. Geliştiricinin bu verilere erişimi yoktur.</li>
+      <li><strong>Sohbet verileri:</strong> Uygulama içindeki silme düğmesiyle anında silinir. Uygulamayı silsen bile mesajların en geç 7 gün içinde sunucudan kendiliğinden silinir.</li>
+      <li><strong>Yurt dışına aktarım:</strong> Sohbet verileri Avrupa Birliği'ndeki (Frankfurt) sunucularda tutulur. Reklam verileri Google'a, olay kayıtları Discord'a (ABD) iletilir. Bu hizmetleri kullanarak bu aktarımları kabul etmiş olursun; Sohbet'i kullanmamak ve AB'de reklam onayı vermemek seçeneklerin her zaman vardır.</li>
+      <li><strong>Güvenlik:</strong> Sunucuyla tüm iletişim HTTPS ile şifrelidir. Sohbet veritabanında her kullanıcı yalnızca kendi adına yazabilir; bu kurallar sunucuda uygulanır.</li>
+    </ul>
+    <h3>Çocuklar</h3>
+    <p>Uygulama 13 yaşından küçük çocuklara yönelik değildir ve bilerek onlardan veri toplamaz.</p>
+    <h3>Değişiklikler</h3>
+    <p>Bu politika değişirse güncel hali bu sayfada yayınlanır ve en üstteki tarih değişir. Önemli değişiklikler uygulama güncellemesiyle birlikte duyurulur.</p>
+  </section>
+
+  <section id="iletisim">
+    <h2>İletişim</h2>
+    <p>Sorular, veri silme talepleri ve KVKK başvuruları için geliştiriciye yazabilirsin. Talepler en geç 30 gün içinde yanıtlanır.</p>
+    <div class="contact">
+      <span class="addr" id="mail">whyoguz@gmail.com</span>
+      <button type="button" id="copy">Adresi kopyala</button>
+    </div>
+  </section>
+
+  <footer>Şafak Sayar: Vatan Borcu · Bağımsız geliştirici uygulaması · Son güncelleme 28 Ekim 2026</footer>
+</div>
+
+<script>
+  document.getElementById("copy").addEventListener("click", function () {
+    var btn = this, text = document.getElementById("mail").textContent;
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = "Adresi kopyala"; }, 1800); }
+    function select() {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("mail"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); done("Seçildi, kopyalayabilirsin");
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { done("Kopyalandı"); }, select);
+    } catch (e) { select(); }
+  });
+</script>
+</body>
+</html>
